@@ -1,17 +1,15 @@
 <?php
-
 declare(strict_types=1);
 
+// Autoload
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use App\Controllers\UserController;
+use App\Router;
 
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$router = new Router();
 
-if ($uri === '/' || $uri === '/users/sync') {
-    $ctrl = new UserController();
-    $ctrl->index();
-} else {
-    header("HTTP/1.0 404 Not Found");
-    echo '404 Not Found';
-}
+$routesDefinition = require __DIR__ . '/../src/Routes/web.php';
+
+$routesDefinition($router);
+
+$router->dispatch();
