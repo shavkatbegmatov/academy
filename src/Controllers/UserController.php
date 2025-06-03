@@ -1,18 +1,20 @@
 <?php
+
 namespace App\Controllers;
 
-use App\Views\UserSyncPage;
-
 class UserController {
-    /** @var string Заголовок страницы */
-    private $title;
+    /**
+     * Displays the user synchronization page.
+     *
+     * @return void
+     */
+    public function index(): void {
 
-    public function __construct(string $title = 'Синхронизация пользователей') {
-        $this->title = false;
+        $title = 'Синхронизация пользователей';
+
+        require __DIR__ . '/../views/layout/header.php';
+        require __DIR__ . '/../views/user/sync.php';
+        require __DIR__ . '/../views/layout/footer.php';
     }
 
-    public function render(): void {
-        $page = new UserSyncPage($this->title);
-        echo $page->render();
-    }
 }

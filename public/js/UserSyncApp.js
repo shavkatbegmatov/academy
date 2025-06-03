@@ -1,3 +1,5 @@
+// public/js/UserSyncApp.js
+
 class UserSyncApp {
     constructor() {
         this.apiUrl = 'https://academy-api.brb.uz/api/employers';
@@ -63,7 +65,8 @@ class UserSyncApp {
                 <td class="filterable">${++nn}</td>
                 <td class="filterable">${user.empId || ''}</td>
                 <td class="filterable">
-                    <span class="avatar avatar-sm me-3" style="background: url('https://api.dicebear.com/9.x/${encodeURIComponent(user.firstName)}/svg?seed=${encodeURIComponent(user.firstName)}')"></span>
+                    <span class="avatar avatar-sm me-3"
+                          style="background: url('https://api.dicebear.com/9.x/${encodeURIComponent(user.firstName)}/svg?seed=${encodeURIComponent(user.firstName)}')"></span>
                 </td>
                 <td class="filterable">${user.firstName || ''}</td>
                 <td class="filterable">${user.lastName || ''}</td>
@@ -74,11 +77,12 @@ class UserSyncApp {
                 <td class="filterable">${user.branchId || ''}</td>
                 <td class="filterable">${formattedDate || ''}</td>
                 <td class="text-end">
-                    <a href="/hr_user/sync/${user.empId}" class="btn btn-icon btn-outline-danger" 
+                    <a href="/hr_user/sync/${user.empId}"
+                       class="btn btn-icon btn-outline-danger"
                        onclick="event.stopPropagation(); return confirm('Вы точно хотите синхронизировать пользователя «${user.firstName}»?');">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
-                             viewBox="0 0 24 24" fill="none" stroke="currentColor" 
-                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                              class="icon">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                             <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
@@ -89,13 +93,11 @@ class UserSyncApp {
             `;
             this.userTableBody.appendChild(row);
 
-            // Навешиваем открытие модального окна
             row.addEventListener('click', () => this.openModal(row));
         });
     }
 
     openModal(row) {
-        // Заполняем детали
         this.detailFields.firstname.textContent  = row.dataset.firstname;
         this.detailFields.lastname.textContent   = row.dataset.lastname;
         this.detailFields.middlename.textContent = row.dataset.middlename;
@@ -106,13 +108,11 @@ class UserSyncApp {
         this.detailFields.created.textContent    = row.dataset.created;
         this.currentEmpIdInput.value             = row.dataset.empid;
 
-        // Показываем модалку
         this.modal.style.display = 'block';
 
-        // Загружаем соответствие Moodle-пользователей
         const params = new URLSearchParams({
             firstname: row.dataset.firstname,
-            lastname: row.dataset.lastname
+            lastname:  row.dataset.lastname
         });
         fetch(`/api/match-moodle-users?${params.toString()}`)
             .then(res => res.json())
@@ -166,7 +166,6 @@ class UserSyncApp {
     }
 }
 
-// Инициализируем приложение, когда DOM загрузится
 document.addEventListener('DOMContentLoaded', () => {
     new UserSyncApp();
 });

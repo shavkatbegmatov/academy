@@ -1,12 +1,17 @@
 <?php
-// public/index.php
+
+declare(strict_types=1);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Controllers\UserController;
 
-// Можно получать заголовок из параметров или оставлять по умолчанию:
-$title = 'Синхронизация пользователей';
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-$controller = new UserController($title);
-$controller->render();
+if ($uri === '/' || $uri === '/users/sync') {
+    $ctrl = new UserController();
+    $ctrl->index();
+} else {
+    header("HTTP/1.0 404 Not Found");
+    echo '404 Not Found';
+}
