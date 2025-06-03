@@ -11,9 +11,9 @@ class UserController
     {
         $title = 'Синхронизация пользователей';
 
-        require __DIR__ . '/../Views/layouts/header.php';
-        require __DIR__ . '/../Views/users/sync.php';
-        require __DIR__ . '/../Views/layouts/footer.php';
+        require __DIR__ . '/../Views/Layouts/header.php';
+        require __DIR__ . '/../Views/Users/sync.php';
+        require __DIR__ . '/../Views/Layouts/footer.php';
     }
 
     /**
